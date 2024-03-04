@@ -3,7 +3,7 @@ import tkinter as tk
 from PIL import Image, ImageTk
 
 window=tk.Tk()
-window.geometry("620x780")
+window.geometry("350x400")
 window.title(" Age Calculator App ")
 
 name = tk.Label(text = "Name")
@@ -34,20 +34,26 @@ class Person:
         age = today.year-self.birthdate.year
         return age
 
-
-def getinput():
-    name = nameEntry.get()
+def getInput():
+    name: str = nameEntry.get()
     monkey = Person(name, 
                     datetime.date(int(yearEntry.get()), 
                                   int(monthEntry.get()),
-                                  int(dateEntry())))
-    textArea = tk.text(master=window, height=10, width=25)
+                                  int(dateEntry.get())))
+    textArea = tk.Text(master=window, height=10, width=30)
     textArea.grid(column=1, row=6)
-    answer = f" Heyy {monkey}!!!, You are {monkey.age()} years old!!! "
+    answer = f''' Heyy {monkey.name}!!!, 
+    You are {monkey.age()} years old!!!''' 
     textArea.insert(tk.END, answer)
 
-image = Image.open('AgeCalc_App.jpeg')
-image.thumbnail((300,300), Image.ANTIALIAS)
+button = tk.Button(window, text="Calculate Age", 
+                   command = getInput, bg="pink")
+button.grid(column=1,row=5)
+
+
+image_path = r"C:\Users\LENOVO\OneDrive\Desktop\EdoC_Files\GUIApps_py\Age Calculator App\AgeCalc_App.jpg"
+image = Image.open(image_path)
+image.thumbnail((300,300), Image.LANCZOS)
 photo = ImageTk.PhotoImage(image)
 label_image = tk.Label(image=photo)
 label_image.grid(column=1,row=0)
